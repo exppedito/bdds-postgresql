@@ -41,7 +41,7 @@ Criação de uma rotina de tolerância a falhas para evitar a perda catastrófic
 
 ### Recursos Implementados:
 - **Script de Automação em Shell Bash (`/backups/backup_banco.sh`):** Realiza o dump lógico do banco de dados (`pg_dump`) e compactação em tempo real (`gzip`).
-- **Autenticação Segura via Unix Sockets:** Configuração de execução atrelada ao usuário nativo `postgres` para respeitar a política de autenticação de segurança `Peer` do Debian.
+- **Autenticação Segura via Unix Sockets:** Configuração de execução atrelada ao usuário nativo `postgres` para respeitar a política de autenticação de segurança `Peer` del Debian.
 - **Política de Retenção de Dados:** Limpeza automatizada via comando `find` para descartar cópias de segurança com mais de 7 dias, evitando o esgotamento do armazenamento do contêiner.
 - **Agendamento Crontab:** Automação completa configurada via `cron` para disparar a rotina de segurança diariamente às 00:00.
 
@@ -56,25 +56,7 @@ Criação de uma rotina de tolerância a falhas para evitar a perda catastrófic
 ### Comandos Rápidos de Verificação:
 ```bash
 # Verificar status do banco de dados
-systemctl status postgresql@17-main
+systemctl status postgresql
 
 # Verificar o agendador de automações
 crontab -l
-
-## 🔄 Plano de Recuperação (Disaster Recovery - DR) Atualizado
-
-Para simular e validar o sistema de resiliência, foi realizado um teste real de destruição e restauração biográfica dos dados após uma reinstalação completa do ambiente.
-
-### Comandos de Restauração:
-Caso ocorra uma perda de dados, a recuperação é feita extraindo o dump lógico diretamente para o utilitário de execução do Postgres:
-```bash
-zcat /backups/postgres/ecommerce_tcc_*.sql.gz | su - postgres -c "psql ecommerce_tcc"
-
-## 🔄 Plano de Recuperação (Disaster Recovery - DR) Atualizado
-
-Para simular e validar o sistema de resiliência, foi realizado um teste real de destruição e restauração biográfica dos dados após uma reinstalação completa do ambiente.
-
-### Comandos de Restauração:
-Caso ocorra uma perda de dados, a recuperação é feita extraindo o dump lógico diretamente para o utilitário de execução do Postgres:
-```bash
-zcat /backups/postgres/ecommerce_tcc_*.sql.gz | su - postgres -c "psql ecommerce_tcc"
