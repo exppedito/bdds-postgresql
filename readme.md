@@ -69,3 +69,12 @@ Para simular e validar o sistema de resiliência, foi realizado um teste real de
 Caso ocorra uma perda de dados, a recuperação é feita extraindo o dump lógico diretamente para o utilitário de execução do Postgres:
 ```bash
 zcat /backups/postgres/ecommerce_tcc_*.sql.gz | su - postgres -c "psql ecommerce_tcc"
+
+## 🔄 Plano de Recuperação (Disaster Recovery - DR) Atualizado
+
+Para simular e validar o sistema de resiliência, foi realizado um teste real de destruição e restauração biográfica dos dados após uma reinstalação completa do ambiente.
+
+### Comandos de Restauração:
+Caso ocorra uma perda de dados, a recuperação é feita extraindo o dump lógico diretamente para o utilitário de execução do Postgres:
+```bash
+zcat /backups/postgres/ecommerce_tcc_*.sql.gz | su - postgres -c "psql ecommerce_tcc"
