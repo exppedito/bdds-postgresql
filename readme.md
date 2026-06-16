@@ -60,3 +60,14 @@ systemctl status postgresql
 
 # Verificar o agendador de automações
 crontab -l
+
+---
+
+## 🔄 Plano de Recuperação (Disaster Recovery - DR)
+
+Para simular e validar o sistema de resiliência, foi realizado um teste real de destruição e restauração catastrófica dos dados após uma reinstalação completa e do zero de todo o ambiente do host.
+
+### Comandos de Restauração:
+Caso ocorra uma perda de dados, a recuperação é feita extraindo o dump lógico diretamente para o utilitário de execução do Postgres:
+```bash
+zcat /backups/postgres/ecommerce_tcc_*.sql.gz | su - postgres -c "psql ecommerce_tcc"
